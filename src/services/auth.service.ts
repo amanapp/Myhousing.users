@@ -1,7 +1,6 @@
 import { Errback, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { Otp } from "../utils/otp-sender.utils";
-import User from "../database/models/user.model";
 import { AuthEntity } from "../entitys/auth.entity";
 
 class authServices {

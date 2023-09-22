@@ -2,8 +2,8 @@ import { AcceptAny } from "../interface/global.interface";
 
 export default class BaseEntity{
   protected model: AcceptAny;
-  constructor(mongoModel:AcceptAny) {
-    this.model = mongoModel;
+  constructor(sequilizeModel:AcceptAny) {
+    this.model = sequilizeModel;
   }
   async findOne(query:any) {
     try {

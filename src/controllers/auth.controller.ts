@@ -2,8 +2,6 @@ import { Request,Response } from "express";
 import { ExceptionMessage, HttpStatusCode } from "../constant/status.constant";
 import { AuthServices } from "../services/auth.service";
 
-
-
 class authController{
      signupUser=async(req:Request,res:Response)=>{
         try {

@@ -12,6 +12,15 @@ class authController{
             res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
           }
     }
+    signupOwner=async(req:Request,res:Response)=>{
+      try {
+          const { name, email, password, phone_no } = req.body;
+          const result = await AuthServices.signupOwner(name, email, password, phone_no);
+          res.status(HttpStatusCode.CREATED).json({ message: ExceptionMessage.USER_SIGNUP });
+        } catch (e:any) {
+          res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
+        }
+  }
     
 }
 

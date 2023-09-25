@@ -13,7 +13,7 @@ class RedisClient {
     await this.client.connect();
   }
   async setKey(key: any, value: any,option?:any) {
-    await this.client.set(key, value);
+    await this.client.set(key, value,option);
   }
 }
 

@@ -11,6 +11,8 @@ class authRouter{
     loadRoute(){
         this.router.post('/user/signup',AuthMiddleware.basic_auth,SignUpJoiMiddleware.middleware,AuthController.signupUser)
         this.router.post('/owner/signup',AuthMiddleware.basic_auth,SignUpJoiMiddleware.middleware,AuthController.signupOwner)
+        this.router.post('/user/verify',AuthController.userVerify)
+
         return this.router;
     }
 }

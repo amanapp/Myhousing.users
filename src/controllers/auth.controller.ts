@@ -21,6 +21,15 @@ class authController{
           res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
         }
   }
+  userVerify=async(req:Request,res:Response)=>{
+    try {
+        const { email,verify_otp } = req.body;
+        const result = await AuthServices.userVerify(email,verify_otp);
+        res.status(HttpStatusCode.CREATED).json({ message: ExceptionMessage.USER_VERIFY });
+      } catch (e:any) {
+        res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
+      }
+}
     
 }
 

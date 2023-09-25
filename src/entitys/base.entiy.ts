@@ -22,5 +22,15 @@ export default class BaseEntity{
       return Promise.reject(error);
     }
   }
+  async Update(query:object,option:object) {
+    try {
+      
+      const result = await this.model.update(query,option);
+      console.log(result,this.model);
+      return result;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
 

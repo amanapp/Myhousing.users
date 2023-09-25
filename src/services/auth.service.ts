@@ -55,9 +55,26 @@ class authServices {
       }
       const val = await redisClient.getKey(`${email}_verification`);
       if(!val)throw new Error("otp is expire ")
-      console.log("redis  value :: ",val,typeof(val))
       if (verify_otp!= val)throw new Error("invalid otp , try again ")
       await UserEntity.Update({verification_key:true},{where:{email:email}});
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  };
+  ownerVerify = async (
+    email: string,
+    verify_otp: string,
+  ): Promise<any> => {
+    try {
+      let foundUser = await OwnerEntity.findOne(email)
+      if (!foundUser) {
+        throw new Error("please register first !!");
+      }
+      const val = await redisClient.getKey(`${email}_verification`);
+      if(!val)throw new Error("otp is expire ")
+      console.log("redis  value :: ",val,typeof(val))
+      if (verify_otp!= val)throw new Error("invalid otp , try again ")
+      await OwnerEntity.Update({verification_key:true},{where:{email:email}});
     } catch (e: any) {
       throw new Error(e.message);
     }

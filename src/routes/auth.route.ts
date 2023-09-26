@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
 import AuthMiddleware from "../middleware/basic.middleware";
 import { SignUpJoiMiddleware } from "../middleware/joi.middleware";
+import { SubscriptionsController } from "../controllers/subscription.controller";
 
 class authRouter{
     private router!: Router;
@@ -16,6 +17,10 @@ class authRouter{
         this.router.post('/owner/verify',AuthController.ownerVerify);
         this.router.post('/user/login',AuthController.loginUser);
         this.router.post('/owner/login',AuthController.loginOwner);
+
+    /** subcription add in the db  */
+        this.router.post('/add/subscription',SubscriptionsController.addSubcription);
+
         return this.router;
     }
 }

@@ -35,6 +35,17 @@ class authController {
       res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
     }
   };
+  otpSend = async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+      const result = await AuthServices.otpSend(email);
+      res
+        .status(HttpStatusCode.OK)
+        .json({ message: ExceptionMessage.OTP_SEND });
+    } catch (e: any) {
+      res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
+    }
+  };
   userVerify = async (req: Request, res: Response) => {
     try {
       const { email, verify_otp } = req.body;

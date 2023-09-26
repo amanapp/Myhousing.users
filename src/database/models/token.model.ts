@@ -1,6 +1,7 @@
 import { Model, DataTypes, UUIDV4 } from "sequelize";
 import { sequelize } from "../dbconnection";
 import User from "./user.model";
+import Owner from "./owner.model";
 
 export class Token extends Model {}
 Token.init(
@@ -13,10 +14,7 @@ Token.init(
     userId: {
       type:  DataTypes.UUID,
       allowNull: false,
-      references: {
-        model: User,
-        key: "id",
-      },
+     
     },
     refreshToken: {
       type: DataTypes.UUID,
@@ -33,10 +31,7 @@ Token.init(
     timestamps: true,
   }
 );
-Token.belongsTo(User,
-  {
-    foreignKey:'userId',
-})
+
 Token.sync({ alter: true});
 
 export default Token;

@@ -104,5 +104,31 @@ class authServices {
       throw new Error(e.message);
     }
   };
+  loginOwner = async (
+    email: string,
+    password: string,
+  ): Promise<any> => {
+    try {
+      let foundOwner:foundUser = await OwnerEntity.findOne(email)
+      if (!foundOwner.verification_key == true) {
+        Otp.verifyOtpSendUser( email );
+        throw new Error(
+          "not verifyed user ,please verify , otp is sending sucessfully"
+        );
+      }
+      const passwordMatch = await bcrypt.compare(password, foundOwner.password);
+      if (passwordMatch) throw new Error("Invalid Password");
+      
+      const [accessToken, refreshToken] = await Promise.all([
+        TokenCreation.createAcessToken(foundOwner.id),
+        TokenCreation.createRefreshToken(foundOwner.id),
+      ]);
+       const result=await TokenEntity.Create({userId:foundOwner.id,refreshToken:refreshToken.jti,accessToken:accessToken.jti})
+       await SessionEntity.Create({userId:foundOwner.id,status:true})
+       return {"accessToken":accessToken.accessToken,"referaceToken":refreshToken.referaceToken}
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  };
 }
 export const AuthServices = new authServices();

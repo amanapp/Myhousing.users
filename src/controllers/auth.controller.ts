@@ -69,6 +69,18 @@ class authController {
       res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
     }
   };
+  loginOwner = async (req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body;
+
+      const result = await AuthServices.loginOwner(email, password);
+      res
+        .status(HttpStatusCode.CREATED)
+        .json({ message: ExceptionMessage.LOGIN_OWNER,result});
+    } catch (e: any) {
+      res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
+    }
+  };
 }
 
 export const AuthController = new authController();

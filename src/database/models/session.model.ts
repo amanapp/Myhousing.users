@@ -2,6 +2,7 @@ import { Model, DataTypes, UUIDV4 } from "sequelize";
 import {sequelize} from '../dbconnection';
 import { SessionAttributes } from '../../interface/global.interface';
 import User from "./user.model";
+import Owner from "./owner.model";
 
 
 class Session extends Model<SessionAttributes> implements SessionAttributes {
@@ -22,11 +23,7 @@ Session.init(
       },
     userId: {
       type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: User,
-        key: 'id',
-      },
+      allowNull: false, 
     },
     device: {
       type: DataTypes.STRING,
@@ -44,10 +41,7 @@ Session.init(
     timestamps:true
   },
 );
-Session.belongsTo(User,
-    {
-      foreignKey:'id',
-  })
+
 Session.sync({ alter: true});
 
 export default Session;

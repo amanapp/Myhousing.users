@@ -20,7 +20,7 @@ class App {
     /**sequelize connection */
     sequelize;
     /**redis client connection */
-   redisClient
+    redisClient;
     /**routers*/
     this.localRoute();
     /**server start */
@@ -30,15 +30,14 @@ class App {
     this.app.use(express.json());
   }
   /**local route declare */
-  private localRoute(){
-     this.app.use(AuthRouter.loadRoute())
+  private localRoute() {
+    this.app.use(AuthRouter.loadRoute());
   }
   private startServer() {
     this.app.listen(this.port, this.callback);
   }
   private callback = () => {
-  loggers.info(`server is started on this port ${this.port}`);
-    
+    loggers.info(`server is started on this port ${this.port}`);
   };
 }
 new App();

@@ -11,7 +11,7 @@ import '../config/env'
 class otp {
   async verifyOtpSendUser(email: any): Promise<any> {
     try {
-      const EMAIL = email.email;
+      const EMAIL = email;
 
       let otp: any = Math.floor(1000 + Math.random() * 9000);
       loggers.info(`otp is ${otp}`);

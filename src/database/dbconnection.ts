@@ -6,7 +6,8 @@ class Database {
   constructor() {
     this.sequelize = new Sequelize('housing_db', 'postgres', 'postgres', {
       host: 'localhost',
-      dialect: 'postgres'
+      dialect: 'postgres',
+      logging:false,
     });
   }
 

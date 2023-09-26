@@ -15,7 +15,6 @@ export default class BaseEntity{
   }
   async Create(query:any) {
     try {
-      
       const result = await this.model.create(query);
       return result;
     } catch (error) {
@@ -26,7 +25,6 @@ export default class BaseEntity{
     try {
       
       const result = await this.model.update(query,option);
-      console.log(result,this.model);
       return result;
     } catch (error) {
       return Promise.reject(error);

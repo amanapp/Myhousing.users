@@ -46,6 +46,15 @@ class authServices {
       throw new Error(e.message);
     }
   };
+  otpSend = async (
+    email: string,
+  ): Promise<any> => {
+    try { 
+      await Otp.verifyOtpSendUser( email );
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  };
   userVerify = async (
     email: string,
     verify_otp: string,

@@ -2,7 +2,6 @@ import { Model, DataTypes, UUIDV4 } from "sequelize";
 import {sequelize} from '../dbconnection';
 import { SessionAttributes } from '../../interface/global.interface';
 import User from "./user.model";
-import Owner from "./owner.model";
 
 
 class Session extends Model<SessionAttributes> implements SessionAttributes {

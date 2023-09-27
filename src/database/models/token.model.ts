@@ -1,7 +1,6 @@
 import { Model, DataTypes, UUIDV4 } from "sequelize";
 import { sequelize } from "../dbconnection";
 import User from "./user.model";
-import Owner from "./owner.model";
 
 export class Token extends Model {}
 Token.init(

@@ -1,5 +1,6 @@
 import { Model, DataTypes, UUIDV4 } from "sequelize";
 import { sequelize } from "../dbconnection";
+import Subscription from "./subscription.model";
 
 class User extends Model {}
 
@@ -39,7 +40,7 @@ User.init(
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: 'subscriptions',
+        model: Subscription,
         key: 'id'
       }
     },
@@ -57,10 +58,6 @@ User.init(
     },
     status: {
       type: DataTypes.BOOLEAN,
-    },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
   },
   {

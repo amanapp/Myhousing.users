@@ -45,11 +45,11 @@ User.init(
       }
     },
     subscription_start: {
-      type: DataTypes.DATE,
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     subscription_end: {
-      type: DataTypes.DATE,
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     verification_key: {

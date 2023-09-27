@@ -12,5 +12,13 @@ class subscriptionsServices{
         throw new Error(e.message);
      }
     }
+   async showSubscription(){
+    try {
+        return await SubscriptionEntity.FindAndCountAll()
+    } catch (e:AcceptAny) {
+        throw new Error(e.message)
+        
+    }
+   }
 }
 export const SubscriptionsServices =new subscriptionsServices()

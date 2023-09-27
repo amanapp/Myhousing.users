@@ -12,7 +12,7 @@ class subscriptionsServices {
       throw new Error(e.message);
     }
   }
-  
+
   async showSubscription() {
     try {
       return await SubscriptionEntity.FindAndCountAll();
@@ -24,7 +24,6 @@ class subscriptionsServices {
   async purchaseSubcription(subscriptionId: string, userId: string) {
     try {
       let foundUser = await UserEntity.findOne(userId);
-      console.log(foundUser, "   ==  ", foundUser.email);
       const SubscriptionStartDate = new Date();
       const SubscriptionEndDate = new Date(
         new Date().setDate(SubscriptionStartDate.getDate() + 30)
@@ -32,6 +31,33 @@ class subscriptionsServices {
 
       const startUnixTime = SubscriptionStartDate.getTime();
       const endUnixTime = SubscriptionEndDate.getTime();
+      await UserEntity.Update(
+        {
+          subscription_id: subscriptionId,
+          subscription_start: startUnixTime,
+          subscription_end: endUnixTime,
+        },
+        { where: { email: foundUser.email } }
+      );
+    } catch (e: AcceptAny) {
+      throw new Error(e.message);
+    }
+  }
+
+  async revokeSubcription(subscriptionId: string, userId: string) {
+    try {
+      let foundUser = await UserEntity.findOne(userId);
+
+      const SubscriptionStartDate = new Date();
+      const SubscriptionEndDate = new Date(
+        new Date().setDate(SubscriptionStartDate.getDate() + 30)
+      );
+      const startUnixTime = SubscriptionStartDate.getTime();
+      const endUnixTime = SubscriptionEndDate.getTime();
+
+      if (startUnixTime < foundUser.subscription_end) {
+        throw new Error("your subscription not expire !! ");
+      }
       await UserEntity.Update(
         {
           subscription_id: subscriptionId,

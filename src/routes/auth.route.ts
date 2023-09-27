@@ -19,6 +19,7 @@ class authRouter{
         this.router.post('/add/subscription',SubscriptionsController.addSubcription);
         this.router.get('/subscription/show',SubscriptionsController.showSubcription);
         this.router.post('/user/subscription',AuthMiddlewares.acessToken,SubscriptionsController.purchaseSubcription);
+        this.router.post('/subscription/revoke',AuthMiddlewares.acessToken,SubscriptionsController.revokeSubcription);
 
         return this.router;
     }

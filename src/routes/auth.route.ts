@@ -20,6 +20,7 @@ class authRouter{
 
     /** subcription add in the db  */
         this.router.post('/add/subscription',SubscriptionsController.addSubcription);
+        this.router.get('/subscription/show',SubscriptionsController.showSubcription);
 
         return this.router;
     }

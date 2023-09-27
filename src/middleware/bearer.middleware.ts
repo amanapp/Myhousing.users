@@ -1,6 +1,8 @@
+
 import express, { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { ExceptionMessage, HttpStatusCode } from "../constant/status.constant";
+import { AcceptAny } from "../interface/global.interface";
 
 export interface CustomRequest extends Request {
     email:string;
@@ -18,7 +20,9 @@ class AuthMiddleware {
     res: Response,
     next: NextFunction
   ) => {
-    const token = req.headers.authorization?.replace('Bearer ','');
+    
+    try {
+        const token = req.headers.authorization?.replace('Bearer ','');
     if (!token) {
       return res
         .status(HttpStatusCode.UNAUTHORIZED)
@@ -28,6 +32,10 @@ class AuthMiddleware {
     const decodedToken: any = <JwtPayload>jwt.verify(token, this.access_secret);
     req.body.isData=decodedToken
     next();
+    } catch (e:AcceptAny) {
+        res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
+
+    }
   };
 
   public referaceToken = async (
@@ -35,7 +43,8 @@ class AuthMiddleware {
     res: Response,
     next: NextFunction
   ) => {
-    const token = req.headers.authorization?.replace('Bearer ','');
+    try {
+        const token = req.headers.authorization?.replace('Bearer ','');
 
     if (!token) {
       return res
@@ -47,7 +56,11 @@ class AuthMiddleware {
     req.body.isData = decodedToken;
 
     next();
-  };
-}
+  
+    } catch (e:AcceptAny) {
+        res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
 
+    }
+}
+}
 export const AuthMiddlewares=  new AuthMiddleware();

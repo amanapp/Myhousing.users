@@ -6,6 +6,7 @@ import { SubscriptionEntity } from "../entitys/subscription.entity";
 class subscriptionsServices{
     async addSubcription(amount:number, name:string, offers:string){
      try {
+        console.log(amount)
          await SubscriptionEntity.Create({amount, name, offers})
 
      } catch (e:AcceptAny) {

@@ -3,6 +3,7 @@ import { AuthController } from "../controllers/auth.controller";
 import AuthMiddleware from "../middleware/basic.middleware";
 import { SignUpJoiMiddleware } from "../middleware/joi.middleware";
 import { SubscriptionsController } from "../controllers/subscription.controller";
+import { AuthMiddlewares } from "../middleware/bearer.middleware";
 
 class authRouter{
     private router!: Router;
@@ -17,6 +18,7 @@ class authRouter{
     /** subcription add in the db  */
         this.router.post('/add/subscription',SubscriptionsController.addSubcription);
         this.router.get('/subscription/show',SubscriptionsController.showSubcription);
+        this.router.post('/user/subscription',AuthMiddlewares.acessToken,SubscriptionsController.purchaseSubcription);
 
         return this.router;
     }

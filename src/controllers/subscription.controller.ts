@@ -30,5 +30,19 @@ class subscriptionsController {
       res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: e.message });
     }
   }
+  async purchaseSubcription(req: Request, res: Response){
+    try {
+      const {subscriptionId,isData}=req.body;
+      console.log(isData)
+      await SubscriptionsServices.purchaseSubcription(subscriptionId,isData.userId)
+      res
+        .status(HttpStatusCode.OK)
+        .json({ message: ExceptionMessage.SUBCRIPTION });
+    } catch (e:AcceptAny) {
+      res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: e.message });
+
+    }
+
+  }
 }
 export const SubscriptionsController = new subscriptionsController();

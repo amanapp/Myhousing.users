@@ -35,14 +35,14 @@ User.init(
       type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: true,
     },
-    // subscription_id: {
-    //   type: DataTypes.UUID,
-    //   allowNull: true,
-    //   references: {
-    //     model: 'subscriptions',
-    //     key: 'id'
-    //   }
-    // },
+    subscription_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'subscriptions',
+        key: 'id'
+      }
+    },
     subscription_start: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -57,6 +57,10 @@ User.init(
     },
     status: {
       type: DataTypes.BOOLEAN,
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

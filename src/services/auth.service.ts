@@ -6,6 +6,7 @@ import { redisClient } from "../database/redisconnection";
 import { TokenCreation } from "../utils/token.utils";
 import { SessionEntity, TokenEntity } from "../entitys/token.entity";
 import { AcceptAny, foundUser } from "../interface/global.interface";
+import { ROLE } from "../constant/statics.constant";
 class authServices {
   signupUser = async (
     name: string,
@@ -20,7 +21,7 @@ class authServices {
       if (foundUser) {
         throw new Error("Already exist the user, please login");
       }
-      let insertUser = await UserEntity.Create({name,email,hashedPassword,phone_no})
+      let insertUser = await UserEntity.Create({name,email,password:hashedPassword,phone_no,role:ROLE.USER})
       await Otp.verifyOtpSendUser( email);
     } catch (e: any) {
       throw new Error(e.message);

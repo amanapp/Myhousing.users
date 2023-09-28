@@ -5,9 +5,11 @@ import { ExceptionMessage, HttpStatusCode } from "../constant/status.constant";
 import { AcceptAny } from "../interface/global.interface";
 
 export interface CustomRequest extends Request {
-    email:string;
-    jti:string;
+    token: any;
+    userId:string;
     iat:string;
+    exp:string;
+    jti:string;
 }
 
 
@@ -30,7 +32,7 @@ class AuthMiddleware {
     }
 
     const decodedToken: any = <JwtPayload>jwt.verify(token, this.access_secret);
-    req.body.isData=decodedToken
+    (req as CustomRequest).token =decodedToken;
     next();
     } catch (e:AcceptAny) {
         res.status(HttpStatusCode.UNAUTHORIZED).json({ message: e.message });
@@ -53,7 +55,7 @@ class AuthMiddleware {
     }
 
     const decodedToken: any = <JwtPayload>jwt.verify(token, this.referace_secret);
-    req.body.isData = decodedToken;
+    (req as CustomRequest).token =decodedToken;
 
     next();
   

@@ -24,3 +24,10 @@ export interface SessionAttributes {
     updatedAt?: Date;
   }
   
+
+  export interface CustomRequest extends Request {
+    userId:string;
+    iat:string;
+    exp:string;
+    jti:string;
+}

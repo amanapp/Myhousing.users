@@ -2,12 +2,14 @@ import { ExceptionMessage, HttpStatusCode } from "../constant/status.constant";
 import { AcceptAny } from "../interface/global.interface";
 import { Request, Response } from "express";
 import { TokenServices } from "../services/resh-token.service";
+import { CustomRequest } from "../middleware/bearer.middleware";
 
 
 class tokenController{
     async refeshToken(req:Request,res:Response){
      try {
-        const {isData}=req.body
+        const isData=    (req as CustomRequest).token
+        console.log(isData)
         const token=await TokenServices.refeshToken(isData.userId,isData.jti);
         res
         .status(HttpStatusCode.CREATED)
